@@ -46,11 +46,26 @@ def matmul(matrixA, matrixB):
 
     return newMatrix
 
-print(matmul([[1,2],[3,4],[5,6]],[[1,1,1],[1,1,1]]))
+#print(matmul([[1,2],[3,4],[5,6]],[[1,1,1],[1,1,1]]))
 
 
 
 def invert():
     pass
+
 def loadtxt(file):
-    pass
+    matrix = []
+    with open(file, "r")as f:
+        data = f.readlines()
+    cleanData = [i.replace("\n", "") for i in data]
+    cleanSplittedData = [i.split("\t") for i in cleanData]
+    
+    for row in cleanSplittedData:
+        newRow = []
+        for element in row:
+            newRow.append(float(element))
+        matrix.append(newRow)
+            
+    return matrix
+
+print(loadtxt("./chirps.txt"))
