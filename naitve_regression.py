@@ -1,8 +1,8 @@
 from matrix import *
 import matplotlib.pyplot as plt
+import sys
 
-
-filePath = "./chirps-modified.txt"
+filePath = sys.argv[1]
 
 mat = transpose(loadtxt(filePath))
 X = mat[0]
