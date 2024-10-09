@@ -21,40 +21,39 @@ def poly(a,x) -> float:
 
 filePath = sys.argv[1]
 
-mat = transpose(loadtxt(filePath))
-X = mat[0]
-Y = mat[1]
+dataset = transpose(loadtxt(filePath))
+datasetXValues = dataset[0]
+datasetYValues = dataset[1]
 
-n = int(sys.argv[2])
+degree = int(sys.argv[2])
 
-Xp  = powers(X,0,n)
-Yp  = powers(Y,1,1)
+
+
+# Beräknar Grafen
+Xp  = powers(datasetXValues,0,degree)
+Yp  = powers(datasetYValues,1,1)
 Xpt = Xp.transpose()
 
 a = matmul(linalg.inv(matmul(Xpt,Xp)),matmul(Xpt,Yp))
 a = a[:,0]
 
-Y2 = []
 
-X2 = []
+
+computedXValues = []
+computedYValues = []
 
 stepSize = 0.2
 
-minVal = min(X)
-maxVal = max(X)
-stepAmount = int((maxVal - minVal) / stepSize)
+minVal = datasetXValues[0]
+maxVal = datasetXValues[-1]
+stepAmount = int(ceil((maxVal - minVal) / stepSize))
 
-X2 = linspace(minVal,maxVal,stepAmount).tolist()
+computedXValues = linspace(minVal,maxVal,stepAmount).tolist()
 
-for xValue in X2:
-    temperature = xValue
-    predicted_number_of_chirps = poly(a,xValue)
-    Y2.append(predicted_number_of_chirps)
+for xValue in computedXValues:
+    currentYValue = poly(a,xValue)
+    computedYValues.append(currentYValue)
     
-for i in range(len(X)):
-    index = int(i)
-print(Y2)
-
-plt.plot(X,Y,'ro')
-plt.plot(X2,Y2)
+plt.plot(datasetXValues,datasetYValues,'ro')
+plt.plot(computedXValues,computedYValues)
 plt.show()
