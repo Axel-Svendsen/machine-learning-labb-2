@@ -39,14 +39,8 @@ def invert(matrix):
     invertedMatrix = [[1/det * d, 1/det * -b],[1/det * -c, 1/det * a]]
     return invertedMatrix
 
-def loadtxt(file):
-    matrix = []
-    with open(file, "r", encoding="utf-8")as f: data = f.readlines()
-    cleanData = [i.replace("\n", "") for i in data]
-    cleanSplittedData = [i.split("\t") for i in cleanData]
-    for row in cleanSplittedData:
-        newRow = []
-        for element in row: 
-            newRow.append(float(element))
-        matrix.append(newRow)
-    return matrix
+def loadtxt(filename):
+    with open(filename, "r", encoding="utf-8") as f: 
+        lines = f.readlines()
+    coordinates = [[float(j) for j in row.split()] for row in lines]
+    return coordinates
